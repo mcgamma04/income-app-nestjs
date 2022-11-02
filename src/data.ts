@@ -1,7 +1,41 @@
+import { report } from "process"
+
+export enum ReportType {
+    INCOME = "income",
+    EXPENSES = "expenses"
+  }
 
 export const data:Data  = {
-    report:[]
+    report:[
+        {
+            id : "uuid1",
+            source:"salary",
+            amount:5000,
+            created_at: new Date(),
+            updated_at: new Date(),
+            type:ReportType.INCOME
+        },
+        {
+            id : "uuid2",
+            source:"Business",
+            amount:3000,
+            created_at: new Date(),
+            updated_at: new Date(),
+            type:ReportType.INCOME
+        },
+
+        {
+            id : "uuid3",
+            source:"Food",
+            amount:5000,
+            created_at: new Date(),
+            updated_at: new Date(),
+            type:ReportType.EXPENSES
+        },
+    ]
 }
+
+
 
 interface Data {
     report:{
@@ -14,7 +48,3 @@ interface Data {
     }[]
 }
 
-enum ReportType {
-  INCOME = "income",
-  EXPENSES = "expenses"
-}
