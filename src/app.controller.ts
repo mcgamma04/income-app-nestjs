@@ -1,5 +1,6 @@
-import { Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import {data, ReportType} from "src/data"
+import {v4 as uuid } from 'uuid'
 
 @Controller("report/:type")
 export class AppController{
@@ -13,23 +14,43 @@ export class AppController{
   }
 
   @Get(':id')
-  getAllExpenseById(){
+  getAllExpenseById(@Param('type')type:string, @Param('id')id : string){
+   
+    const reportType = type == "income"?ReportType.INCOME : ReportType.EXPENSES;
+    return data.report.filter((report) => report.type === reportType)
+         .find((report) =>report.id ===id)
+
+
   return "This will return only expenses that match the specified id.";
   }
 
   @Post('')
-  CreateReport(){
-    return 'expenses';
+  CreateReport(@Param('type') type : string,@Body(){source,amount}:{source:string;amount:number}){
+     
+     const newReport = {
+      id:uuid(),
+      source,
+      amount,
+      created_at: new Date(),
+      updated_at : new Date(),
+      type:type ==="income"?ReportType.INCOME : ReportType.EXPENSES
+     }
+     data.report.push(newReport);
+    return newReport;
   }
 
   @Put(':id')
-  updateReport(){
+  updateReport()
+  {
     return "updated";
   }
   
  @Delete(':id') 
- deleteReport(){
-  return 'item deleted successfully';
+ deleteReport(@Param('type') type : string,@Param('id')id: string){
+  const reportType = type == "income"?ReportType.INCOME : ReportType.EXPENSES;
+ data.report.filter((report) => report.type=== reportType)
+  .filter((report) =>report.id !== id)
+  return `report with ${id} deleted successfully`;
  }
 
 

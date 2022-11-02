@@ -1,4 +1,3 @@
-import { report } from "process"
 
 export enum ReportType {
     INCOME = "income",
@@ -30,7 +29,7 @@ export const data:Data  = {
             amount:5000,
             created_at: new Date(),
             updated_at: new Date(),
-            type:ReportType.EXPENSES
+            type:ReportType.INCOME
         },
     ]
 }
