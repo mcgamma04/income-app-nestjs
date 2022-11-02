@@ -66,10 +66,18 @@ export class AppController{
   
  @Delete(':id') 
  deleteReport(@Param('type') type : string,@Param('id')id: string){
-  const reportType = type == "income"?ReportType.INCOME : ReportType.EXPENSES;
- data.report.filter((report) => report.type=== reportType)
-  .filter((report) =>report.id !== id)
-  return `report with ${id} deleted successfully`;
+
+ const reportIndex = data.report.findIndex(report =>report.id === id)
+      console.log(reportIndex);
+      
+  // return `report with ${id} deleted successfully`;
+
+  if(reportIndex !== -1){
+   data.report.splice(reportIndex,1);
+   return "report deleted successfully";
+  }
+  
+ return `No report with ${id}`;
  }
 
 
