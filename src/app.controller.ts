@@ -8,7 +8,7 @@ export class AppController{
   @Get('')
   getAllExpense(@Param('type') type : string){
     //console.log(type);
-     const reportType = type =="income"?ReportType.INCOME : ReportType.EXPENSES;
+     const reportType = type =="income"? ReportType.INCOME : ReportType.EXPENSES;
 
     return data.report.filter((report) =>report.type === reportType);
   }
